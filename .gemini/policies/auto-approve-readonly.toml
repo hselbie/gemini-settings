@@ -1,0 +1,238 @@
+# Auto-approve read-only tools
+# These tools only read data and cannot modify the filesystem or system state.
+# Safe to auto-approve in all modes.
+
+[[rule]]
+toolName = "read_file"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "glob"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "grep"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "list_directory"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "read_many_files"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "web_search"
+decision = "allow"
+priority = 100
+
+[[rule]]
+toolName = "web_fetch"
+decision = "allow"
+priority = 100
+
+# Auto-approve read-only shell commands
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cat "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "ls "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "find "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "head "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "tail "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "wc "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "grep "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rg "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "fd "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "tree "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "which "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "file "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "stat "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "du "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "df "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "pwd"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "echo "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "env"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "printenv"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "whoami"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "hostname"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uname "
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "date"
+decision = "allow"
+priority = 90
+
+# Read-only git commands
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git status"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git log"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git diff"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git show"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git branch"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git remote"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git tag"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git blame"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git stash list"
+decision = "allow"
+priority = 90
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git rev-parse"
+decision = "allow"
+priority = 90

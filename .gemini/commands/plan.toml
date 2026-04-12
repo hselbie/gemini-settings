@@ -1,0 +1,13 @@
+description = "Create a detailed implementation plan before writing any code."
+prompt = """
+I want to plan before implementing. The task is: {{args}}
+
+Please:
+1. **Understand**: Restate the problem in your own words. If anything is ambiguous, ask before proceeding.
+2. **Research**: Read relevant files to understand the current state of the code.
+3. **Design**: Outline the approach — what files to change, what to add, what the key decisions are.
+4. **Risks**: What could go wrong? What are the edge cases?
+5. **Sequence**: In what order should the changes be made?
+
+Do NOT write any code yet. Just the plan. I'll review and we'll iterate before implementing.
+"""

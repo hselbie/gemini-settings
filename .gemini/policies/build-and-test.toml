@@ -1,0 +1,122 @@
+# Auto-approve common build and test commands
+# These are safe to run without confirmation.
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "npm test"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "npm run"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "npm install"
+decision = "ask_user"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "npx "
+decision = "ask_user"
+priority = 100
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "go test"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "go build"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "go run"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "go vet"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "make "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cargo test"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cargo build"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cargo run"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cargo check"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "cargo clippy"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "python -m pytest"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "pytest "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "python "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "tsc "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "eslint "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "prettier "
+decision = "allow"
+priority = 85

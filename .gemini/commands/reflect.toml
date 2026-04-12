@@ -1,0 +1,12 @@
+description = "Reflect on the current session: what was done, what went well, what could improve."
+prompt = """
+Pause and reflect on our conversation so far.
+
+1. **Summary**: What have we accomplished in this session?
+2. **Decisions**: What key decisions were made, and what was the reasoning?
+3. **Quality check**: Are there any shortcuts taken that should be revisited? Anything that feels fragile or incomplete?
+4. **Open questions**: Is there anything we discussed but didn't resolve? Any assumptions that should be validated?
+5. **Next steps**: What would be the most valuable thing to do next?
+
+Be honest and critical. This is about improving, not self-congratulation.
+"""

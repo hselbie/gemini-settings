@@ -1,0 +1,72 @@
+# Safety guardrails
+# Block dangerous commands outright. Always prompt for destructive operations.
+
+# Block rm -rf with broad paths
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm -rf /"
+decision = "deny"
+priority = 900
+denyMessage = "Refusing to recursively delete root filesystem."
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm -rf ~"
+decision = "deny"
+priority = 900
+denyMessage = "Refusing to recursively delete home directory."
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm -rf *"
+decision = "deny"
+priority = 900
+denyMessage = "Refusing to recursively delete with wildcard."
+
+# Block chmod/chown on system paths
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = "(chmod|chown).*(/etc|/usr|/bin|/sbin|/lib|/boot)"
+decision = "deny"
+priority = 800
+denyMessage = "Refusing to change permissions on system directories."
+
+# Always ask before git push or force operations
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "git push"
+decision = "ask_user"
+priority = 200
+
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = "git.*--force"
+decision = "ask_user"
+priority = 200
+
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = "git.*-f"
+decision = "ask_user"
+priority = 200
+
+# Always ask before running anything with sudo
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "sudo "
+decision = "ask_user"
+priority = 200
+
+# Always ask before deleting files
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "rm "
+decision = "ask_user"
+priority = 150
+
+# Always ask before running curl/wget to pipe into shell
+[[rule]]
+toolName = "run_shell_command"
+commandRegex = "(curl|wget).*\\|.*(sh|bash)"
+decision = "ask_user"
+priority = 200

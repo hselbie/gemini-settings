@@ -1,0 +1,16 @@
+description = "Self-review the recent changes, checking for bugs, edge cases, and style issues."
+prompt = """
+Please review the changes in the current working tree (or the last commit if the tree is clean).
+
+For each file changed:
+1. Read the full file for context
+2. Check the diff carefully
+3. Look for: bugs, edge cases, missing error handling, style inconsistencies, unnecessary complexity
+
+Be critical. If everything looks good, say so briefly. If there are issues, explain each one clearly with the specific file and line.
+
+After reviewing individual files, step back and consider:
+- Do all the changes work together coherently?
+- Are there any cross-file issues (e.g., interface mismatches, missing imports)?
+- Is anything missing that should have been included?
+"""

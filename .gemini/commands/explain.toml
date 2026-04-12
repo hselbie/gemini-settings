@@ -1,0 +1,12 @@
+description = "Explain a file or code section in depth."
+prompt = """
+Please explain {{args}} in depth.
+
+- What does this code do at a high level?
+- Walk through the key logic step by step
+- What are the important design decisions?
+- Are there any non-obvious behaviors or edge cases?
+- How does it fit into the broader codebase?
+
+Assume I'm a developer who's new to this part of the codebase.
+"""

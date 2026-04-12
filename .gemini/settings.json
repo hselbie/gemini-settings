@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+  "general": {
+    "checkpointing": {
+      "enabled": true
+    },
+    "plan": {
+      "enabled": true,
+      "modelRouting": true
+    }
+  },
+  "ui": {
+    "inlineThinkingMode": "full",
+    "showLineNumbers": true,
+    "compactToolOutput": true,
+    "loadingPhrases": "witty",
+    "showShortcutsHint": true,
+    "showCitations": true,
+    "footer": {
+      "showLabels": true,
+      "hideContextPercentage": false
+    }
+  },
+  "context": {
+    "includeDirectoryTree": true
+  },
+  "privacy": {
+    "usageStatisticsEnabled": false
+  }
+}

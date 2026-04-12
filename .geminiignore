@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+vendor/
+.venv/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+out/
+*.min.js
+*.min.css
+*.map
+
+# Binary and media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.mp3
+*.mp4
+*.zip
+*.tar.gz
+*.pdf
+
+# IDE and OS files
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Lock files (large, not useful for context)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+Cargo.lock
+go.sum
+composer.lock
+Gemfile.lock
+Poetry.lock
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
