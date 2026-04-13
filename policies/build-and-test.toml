@@ -103,6 +103,61 @@ commandPrefix = "python "
 decision = "allow"
 priority = 85
 
+# uv — preferred Python package manager
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv run "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv add "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv remove "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv sync"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv venv"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv pip "
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv init"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uv lock"
+decision = "allow"
+priority = 85
+
+[[rule]]
+toolName = "run_shell_command"
+commandPrefix = "uvx "
+decision = "allow"
+priority = 85
+
 [[rule]]
 toolName = "run_shell_command"
 commandPrefix = "tsc "

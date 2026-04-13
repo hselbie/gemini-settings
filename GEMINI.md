@@ -45,6 +45,18 @@ When you're unsure whether your code is correct — a tricky edge case, an unfam
 - **When making design choices under ambiguity:** If you chose approach A over B and aren't fully confident, write tests that validate the key assumptions of approach A. If those assumptions hold, explain why with the test results. If they don't, switch approaches.
 - **The rule:** Uncertainty + no test = stop and ask. Uncertainty + passing test = justified decision. Uncertainty + failing test = bug found, good catch.
 
+## Python Tooling
+
+**Always use `uv` as the Python package manager.** Do not use `pip`, `pip install`, `python -m pip`, or `virtualenv` directly. Use `uv` for everything:
+
+- **Install packages:** `uv add <package>` (not `pip install`)
+- **Run scripts:** `uv run python <script>` or `uv run pytest`
+- **Create environments:** `uv venv` (not `python -m venv`)
+- **Install from requirements:** `uv pip install -r requirements.txt`
+- **Run tools:** `uvx <tool>` for one-off CLI tools (not `pipx`)
+
+If a project doesn't have a `pyproject.toml` yet, use `uv init` to create one.
+
 ## Operational Discipline
 
 - **Surgical precision.** When modifying code, alter only the targeted segments. Preserve all surrounding code, config values, comments, and formatting. Do not "improve" adjacent code.
