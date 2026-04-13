@@ -13,4 +13,8 @@ After reviewing individual files, step back and consider:
 - Do all the changes work together coherently?
 - Are there any cross-file issues (e.g., interface mismatches, missing imports)?
 - Is anything missing that should have been included?
+
+**Test-backed review:** If you find something suspicious but aren't sure if it's actually a bug, don't just flag it as "potential issue" — write a small test that would expose the problem and run it. Report what actually happened. If the test passes, the code is fine and explain why. If it fails, you've confirmed a real bug. Uncertainty should be resolved with evidence, not speculation.
+
+Run the project's existing test suite too. Report any failures the changes introduced.
 """
