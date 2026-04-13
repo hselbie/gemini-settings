@@ -1,20 +1,53 @@
-# Gemini CLI Settings
+# ~/.gemini
 
-Opinionated configuration for a great [Gemini CLI](https://github.com/google-gemini/gemini-cli) experience.
+Git-controlled [Gemini CLI](https://github.com/google-gemini/gemini-cli) user settings. Clone this repo as `~/.gemini` and everything just works.
 
-## What's Included
+## Setup
 
-### `GEMINI.md` — Agent Behavior Instructions
+```bash
+# Back up existing settings if you have any
+mv ~/.gemini ~/.gemini.bak
 
-System prompt that shapes how Gemini behaves:
+# Clone as your ~/.gemini directory
+git clone https://github.com/hselbie/gemini-settings.git ~/.gemini
+```
 
-- **Ask, don't guess** — When something is ambiguous, the agent asks a focused question instead of presenting a menu of options
-- **Discuss problems, not solutions** — Describes what's tricky and engages in dialogue before jumping to fixes
-- **Self-reflection** — Reviews its own work, catches circular reasoning, and acknowledges mistakes
-- **Minimal changes** — Makes the smallest correct change without refactoring unrelated code
-- **Honesty** — Says "I don't know" when uncertain
+That's it. Gemini CLI reads `~/.gemini/` automatically for user-level settings, policies, commands, skills, and context.
 
-### `.gemini/settings.json` — CLI Configuration
+### Per-Project Setup
+
+Copy the project-level files into any repo you work on:
+
+```bash
+cp ~/.gemini/project-template/GEMINI.md /path/to/project/GEMINI.md
+cp ~/.gemini/project-template/.geminiignore /path/to/project/.geminiignore
+```
+
+## What's Here
+
+```
+~/.gemini/
+├── GEMINI.md                ─ Global agent instructions (always active)
+├── settings.json            ─ CLI configuration
+├── policies/                ─ Tool approval rules
+├── commands/                ─ Custom slash commands
+├── skills/                  ─ On-demand agent expertise
+└── project-template/        ─ Files to copy into individual projects
+    ├── GEMINI.md            ─ Per-project agent instructions
+    └── .geminiignore        ─ Context filtering
+```
+
+### `GEMINI.md` — Agent Behavior
+
+Global instructions shaping how Gemini behaves across all projects:
+
+- **Ask, don't guess** — Asks focused questions instead of presenting option menus
+- **Discuss problems, not solutions** — Engages in dialogue before jumping to fixes
+- **Self-reflection** — Reviews its own work, catches circular reasoning, acknowledges mistakes
+- **Surgical precision** — Changes only what was asked, preserves everything else
+- **Operational discipline** — Breaks infinite loops, fixes root causes not symptoms
+
+### `settings.json` — CLI Config
 
 - Checkpointing enabled for session recovery
 - Plan mode with model routing (Pro for planning, Flash for implementation)
@@ -22,125 +55,81 @@ System prompt that shapes how Gemini behaves:
 - Context percentage shown in footer
 - Usage statistics disabled
 
-### `.gemini/policies/` — Tool Approval Rules
+### `policies/` — Tool Approval Rules
 
-**`auto-approve-readonly.toml`** — Auto-approves read-only operations:
-- File reading tools: `read_file`, `glob`, `grep`, `list_directory`, `read_many_files`
-- Web tools: `web_search`, `web_fetch`
-- Read-only shell commands: `cat`, `ls`, `find`, `head`, `tail`, `grep`, `rg`, `tree`, etc.
-- Read-only git commands: `status`, `log`, `diff`, `show`, `branch`, `blame`, etc.
+| File | What It Does |
+|------|--------------|
+| `auto-approve-readonly.toml` | Auto-approves read-only tools (`read_file`, `glob`, `grep`, `cat`, `ls`, `git status/log/diff/blame`, etc.) |
+| `safety-guardrails.toml` | Blocks `rm -rf /`, system `chmod/chown`; requires confirmation for `git push`, `sudo`, `rm` |
+| `build-and-test.toml` | Auto-approves `npm test/run`, `go test/build`, `cargo test/build`, `make`, `pytest`, etc. |
 
-**`safety-guardrails.toml`** — Blocks dangerous operations:
-- Denies `rm -rf /`, `rm -rf ~`, `rm -rf *`
-- Denies permission changes on system directories
-- Requires confirmation for: `git push`, force flags, `sudo`, `rm`, piped curl/wget
-
-**`build-and-test.toml`** — Auto-approves build/test commands:
-- `npm test/run`, `go test/build/run`, `cargo test/build/run`, `make`, `pytest`, `tsc`, `eslint`, `prettier`
-- Requires confirmation for `npm install` and `npx` (they can modify the system)
-
-### `.gemini/commands/` — Custom Commands
+### `commands/` — Slash Commands
 
 | Command | Description |
 |---------|-------------|
 | `/review` | Self-review recent changes for bugs, edge cases, style issues |
 | `/reflect` | Session retrospective — what was done, decisions made, open questions |
 | `/explain <target>` | Deep explanation of a file or code section |
-| `/plan <task>` | Create a detailed implementation plan before writing code |
+| `/plan <task>` | Create an implementation plan before writing code |
 
-### `.gemini/skills/` — Agent Skills
+### `skills/` — Agent Skills
 
-On-demand expertise that Gemini activates when it matches a task. Skills are not loaded into context until needed, keeping the context window clean.
+On-demand expertise that Gemini activates when it matches a task. Not loaded until needed.
 
-**General-Purpose Skills:**
+**General-Purpose:**
 
 | Skill | Persona | When It Activates |
 |-------|---------|-------------------|
-| `amelia-tdd` | Amelia — TDD Mentor | Writing tests first, RED→GREEN→REFACTOR cycles, adding test coverage |
-| `barry-quickdev` | Barry — Rapid Developer | MVPs, quick features, bug fixes, shipping fast |
-| `winston-arch` | Winston — System Architect | Architecture decisions, trade-off analysis, ADRs, system design |
+| `amelia-tdd` | TDD Mentor | Tests first, RED→GREEN→REFACTOR cycles, adding coverage |
+| `barry-quickdev` | Rapid Developer | MVPs, quick features, bug fixes, shipping fast |
+| `winston-arch` | System Architect | Architecture decisions, trade-off analysis, ADRs, diagrams |
 
-**ADK Skills** (for Google Agent Development Kit projects):
+**ADK** (Google Agent Development Kit):
 
 | Skill | Purpose |
 |-------|---------|
-| `adk-cheatsheet` | Python API reference for ADK agents, tools, orchestration |
-| `adk-dev-guide` | Development lifecycle, operational guidelines, coding discipline |
-| `adk-eval-guide` | Evaluation methodology, eval config schemas, common gotchas |
-| `adk-deploy-guide` | Production deployment, CI/CD, Terraform, Agent Engine |
-| `adk-scaffold` | Project scaffolding with Agent Starter Pack CLI |
+| `adk-cheatsheet` | Python API reference for ADK |
+| `adk-dev-guide` | Development lifecycle and coding guidelines |
+| `adk-eval-guide` | Evaluation methodology and common gotchas |
+| `adk-deploy-guide` | Production deployment, CI/CD, Terraform |
+| `adk-scaffold` | Project scaffolding with Agent Starter Pack |
 
-### `.geminiignore` — Context Filtering
-
-Excludes noise from the model's context: dependencies, build outputs, binaries, lock files, logs.
-
-## Usage
-
-### As a project template
-
-Copy the files into your project:
+## Keeping Settings in Sync
 
 ```bash
-# Copy everything
-cp -r GEMINI.md .gemini/ .geminiignore /path/to/your/project/
+# After making changes in ~/.gemini
+cd ~/.gemini
+git add -p
+git commit -m "describe your change"
+git push
+
+# On another machine
+cd ~/.gemini
+git pull
 ```
-
-Or link skills into Gemini CLI directly:
-
-```bash
-gemini skills link /path/to/gemini-settings/.gemini/skills
-```
-
-### As global user settings
-
-Copy to your home directory for all projects:
-
-```bash
-# Global instructions
-cp GEMINI.md ~/.gemini/GEMINI.md
-
-# Global settings (merge with existing if you have one)
-cp .gemini/settings.json ~/.gemini/settings.json
-
-# Global policies
-cp -r .gemini/policies/ ~/.gemini/policies/
-
-# Global commands
-cp -r .gemini/commands/ ~/.gemini/commands/
-
-# Global skills
-cp -r .gemini/skills/ ~/.gemini/skills/
-# Or use: gemini skills link /path/to/gemini-settings/.gemini/skills
-```
-
-### Mix and match
-
-Every file is independent. Take what you want, leave what you don't.
 
 ## Customization
 
-Edit any file to match your preferences. Key things you might want to change:
-
-- **`GEMINI.md`** — Adjust the communication style, add project-specific conventions
-- **`settings.json`** — Change the model, adjust thinking visibility, tweak UI
-- **Policies** — Add/remove auto-approved commands for your stack
-- **Commands** — Add shortcuts for your common workflows
-- **Skills** — Remove ADK skills if you don't use ADK, add your own expertise skills
+- **`GEMINI.md`** — Adjust communication style, add personal conventions
+- **`settings.json`** — Change model, thinking visibility, UI preferences
+- **`policies/`** — Add/remove auto-approved commands for your stack
+- **`commands/`** — Add shortcuts for your workflows
+- **`skills/`** — Add your own, remove ADK skills if you don't use ADK
 
 ## Skills Attribution
 
-The skills in `.gemini/skills/` are adapted from [hselbie/agent-skills](https://github.com/hselbie/agent-skills) with the following edits:
-- Improved skill descriptions for better auto-activation matching
-- Fixed model name contradictions (`gemini-2.0-flash` → `gemini-3-flash-preview` in adk-cheatsheet)
+Skills adapted from [hselbie/agent-skills](https://github.com/hselbie/agent-skills) with edits:
+- Improved descriptions for better auto-activation matching
+- Fixed model name contradictions (`gemini-2.0-flash` → `gemini-3-flash-preview`)
 - Fixed phantom persona references (Murat, Paige, Sam → actual skill names)
-- Added "execute tests, don't simulate" principle to amelia-tdd
+- Added "execute tests, don't simulate" to amelia-tdd
 - Extracted operational guidelines from adk-dev-guide into GEMINI.md
-- Removed `mcp-server: adk-mcp` metadata (not bundled)
+- Removed `mcp-server: adk-mcp` metadata
 
 ## Reference
 
-- [Gemini CLI Configuration Docs](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/configuration.md)
-- [Policy Engine Docs](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/policy-engine.md)
+- [Gemini CLI Configuration](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/configuration.md)
+- [Policy Engine](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/policy-engine.md)
 - [GEMINI.md Context Files](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/gemini-md.md)
 - [Custom Commands](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/custom-commands.md)
 - [Agent Skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md)
