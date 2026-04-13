@@ -48,6 +48,28 @@ System prompt that shapes how Gemini behaves:
 | `/explain <target>` | Deep explanation of a file or code section |
 | `/plan <task>` | Create a detailed implementation plan before writing code |
 
+### `.gemini/skills/` — Agent Skills
+
+On-demand expertise that Gemini activates when it matches a task. Skills are not loaded into context until needed, keeping the context window clean.
+
+**General-Purpose Skills:**
+
+| Skill | Persona | When It Activates |
+|-------|---------|-------------------|
+| `amelia-tdd` | Amelia — TDD Mentor | Writing tests first, RED→GREEN→REFACTOR cycles, adding test coverage |
+| `barry-quickdev` | Barry — Rapid Developer | MVPs, quick features, bug fixes, shipping fast |
+| `winston-arch` | Winston — System Architect | Architecture decisions, trade-off analysis, ADRs, system design |
+
+**ADK Skills** (for Google Agent Development Kit projects):
+
+| Skill | Purpose |
+|-------|---------|
+| `adk-cheatsheet` | Python API reference for ADK agents, tools, orchestration |
+| `adk-dev-guide` | Development lifecycle, operational guidelines, coding discipline |
+| `adk-eval-guide` | Evaluation methodology, eval config schemas, common gotchas |
+| `adk-deploy-guide` | Production deployment, CI/CD, Terraform, Agent Engine |
+| `adk-scaffold` | Project scaffolding with Agent Starter Pack CLI |
+
 ### `.geminiignore` — Context Filtering
 
 Excludes noise from the model's context: dependencies, build outputs, binaries, lock files, logs.
@@ -61,6 +83,12 @@ Copy the files into your project:
 ```bash
 # Copy everything
 cp -r GEMINI.md .gemini/ .geminiignore /path/to/your/project/
+```
+
+Or link skills into Gemini CLI directly:
+
+```bash
+gemini skills link /path/to/gemini-settings/.gemini/skills
 ```
 
 ### As global user settings
@@ -79,6 +107,10 @@ cp -r .gemini/policies/ ~/.gemini/policies/
 
 # Global commands
 cp -r .gemini/commands/ ~/.gemini/commands/
+
+# Global skills
+cp -r .gemini/skills/ ~/.gemini/skills/
+# Or use: gemini skills link /path/to/gemini-settings/.gemini/skills
 ```
 
 ### Mix and match
@@ -93,6 +125,17 @@ Edit any file to match your preferences. Key things you might want to change:
 - **`settings.json`** — Change the model, adjust thinking visibility, tweak UI
 - **Policies** — Add/remove auto-approved commands for your stack
 - **Commands** — Add shortcuts for your common workflows
+- **Skills** — Remove ADK skills if you don't use ADK, add your own expertise skills
+
+## Skills Attribution
+
+The skills in `.gemini/skills/` are adapted from [hselbie/agent-skills](https://github.com/hselbie/agent-skills) with the following edits:
+- Improved skill descriptions for better auto-activation matching
+- Fixed model name contradictions (`gemini-2.0-flash` → `gemini-3-flash-preview` in adk-cheatsheet)
+- Fixed phantom persona references (Murat, Paige, Sam → actual skill names)
+- Added "execute tests, don't simulate" principle to amelia-tdd
+- Extracted operational guidelines from adk-dev-guide into GEMINI.md
+- Removed `mcp-server: adk-mcp` metadata (not bundled)
 
 ## Reference
 
@@ -100,3 +143,5 @@ Edit any file to match your preferences. Key things you might want to change:
 - [Policy Engine Docs](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/policy-engine.md)
 - [GEMINI.md Context Files](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/gemini-md.md)
 - [Custom Commands](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/custom-commands.md)
+- [Agent Skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md)
+- [Agent Skills Spec](https://agentskills.io)
