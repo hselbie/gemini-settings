@@ -7,7 +7,11 @@ For each file changed:
 2. Check the diff carefully
 3. Look for: bugs, edge cases, missing error handling, style inconsistencies, unnecessary complexity
 
-Be critical. If everything looks good, say so briefly. If there are issues, explain each one clearly with the specific file and line.
+Be critical. If everything looks good, say so briefly. If there are issues, explain each one with:
+- The specific file and line
+- A clear rationale for WHY it's a problem (not just "this looks wrong")
+- Concrete evidence: a failing test, a contradictory doc reference, or a demonstrated edge case
+If you can't produce evidence for a concern, frame it as a question to investigate, not a finding.
 
 After reviewing individual files, step back and consider:
 - Do all the changes work together coherently?
