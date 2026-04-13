@@ -1,0 +1,24 @@
+# Gemini CLI runtime state — not tracked in version control
+# These are generated/managed by Gemini CLI at runtime
+
+# Session history (contains per-user embedded git repos)
+history/
+
+# Auth & account state
+google_accounts.json
+
+# Runtime state files
+state.json
+trustedFolders.json
+projects.json
+installation_id
+
+# Temp files
+tmp/
+
+# Extensions (installed via `gemini extensions install`, each is its own git repo)
+extensions/
+
+# OS artifacts
+.DS_Store
+Thumbs.db

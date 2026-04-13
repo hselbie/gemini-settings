@@ -29,12 +29,23 @@ cp ~/.gemini/project-template/.geminiignore /path/to/project/.geminiignore
 ~/.gemini/
 ├── GEMINI.md                ─ Global agent instructions (always active)
 ├── settings.json            ─ CLI configuration
+├── .gitignore               ─ Excludes runtime state from version control
 ├── policies/                ─ Tool approval rules
 ├── commands/                ─ Custom slash commands
 ├── skills/                  ─ On-demand agent expertise
-└── project-template/        ─ Files to copy into individual projects
-    ├── GEMINI.md            ─ Per-project agent instructions
-    └── .geminiignore        ─ Context filtering
+├── project-template/        ─ Files to copy into individual projects
+│   ├── GEMINI.md            ─ Per-project agent instructions
+│   └── .geminiignore        ─ Context filtering
+│
+│   ── Managed by Gemini CLI at runtime (git-ignored) ──
+├── extensions/              ─ Installed extensions (each is its own git repo)
+├── history/                 ─ Session history (per-user embedded repos)
+├── tmp/                     ─ Temporary files
+├── state.json               ─ Runtime state
+├── trustedFolders.json      ─ Folder trust settings
+├── google_accounts.json     ─ Auth tokens
+├── projects.json            ─ Project registry
+└── installation_id          ─ Unique install identifier
 ```
 
 ### `GEMINI.md` — Agent Behavior
@@ -72,6 +83,20 @@ Global instructions shaping how Gemini behaves across all projects:
 | `/explain <target>` | Deep explanation of a file or code section |
 | `/plan <task>` | Create an implementation plan before writing code |
 
+### Extensions
+
+**[Conductor](https://github.com/gemini-cli-extensions/conductor)** — Context-Driven Development. Turns Gemini CLI into a project manager that follows a strict protocol: **Context → Spec & Plan → Implement**. Creates specs and plans before writing code, maintains project context, and enables safe iteration.
+
+Install after cloning:
+
+```bash
+gemini extensions install https://github.com/gemini-cli-extensions/conductor --auto-update
+```
+
+Key commands: `/conductor:setup`, `/conductor:newTrack`, `/conductor:implement`, `/conductor:review`, `/conductor:revert`
+
+> Extensions are installed into `extensions/` and git-ignored — they're managed by `gemini extensions install`, not by this repo.
+
 ### `skills/` — Agent Skills
 
 On-demand expertise that Gemini activates when it matches a task. Not loaded until needed.
@@ -106,6 +131,9 @@ git push
 # On another machine
 cd ~/.gemini
 git pull
+
+# Re-install extensions (they're git-ignored, not part of the repo)
+gemini extensions install https://github.com/gemini-cli-extensions/conductor --auto-update
 ```
 
 ## Customization
@@ -115,6 +143,7 @@ git pull
 - **`policies/`** — Add/remove auto-approved commands for your stack
 - **`commands/`** — Add shortcuts for your workflows
 - **`skills/`** — Add your own, remove ADK skills if you don't use ADK
+- **Extensions** — Install via `gemini extensions install <url>` (auto-ignored by git)
 
 ## Skills Attribution
 
@@ -126,6 +155,10 @@ Skills adapted from [hselbie/agent-skills](https://github.com/hselbie/agent-skil
 - Extracted operational guidelines from adk-dev-guide into GEMINI.md
 - Removed `mcp-server: adk-mcp` metadata
 
+## .gitignore
+
+Gemini CLI writes runtime state to `~/.gemini/` (history, auth, session state, installed extensions). The `.gitignore` excludes all of these so `git add .` is safe. Extensions like Conductor are their own git repos — tracking them here would create embedded repo conflicts.
+
 ## Reference
 
 - [Gemini CLI Configuration](https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/configuration.md)
@@ -134,3 +167,5 @@ Skills adapted from [hselbie/agent-skills](https://github.com/hselbie/agent-skil
 - [Custom Commands](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/custom-commands.md)
 - [Agent Skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md)
 - [Agent Skills Spec](https://agentskills.io)
+- [Conductor Extension](https://github.com/gemini-cli-extensions/conductor)
+- [Conductor Blog Post](https://developers.googleblog.com/conductor-introducing-context-driven-development-for-gemini-cli/)
