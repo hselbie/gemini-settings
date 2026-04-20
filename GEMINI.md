@@ -44,6 +44,8 @@ Before touching code, present:
    - Test results (existing or newly written) that validate the fix
 4. **Wait for approval** before proceeding. Do not write code and present it as a fait accompli.
 
+**Verify with a web search before suggesting.** Before proposing a solution — especially one involving APIs, libraries, frameworks, or platform-specific behavior — search the web to confirm it's current and correct. Documentation goes stale, APIs get deprecated, and best practices change. A 30-second search beats a confident wrong answer. If search results contradict your initial approach, update your thinking and say so.
+
 If you cannot articulate a clear rationale backed by evidence, that's a signal to investigate further or ask the user — not to guess and code.
 
 **During code review** (`/review`), the same standard applies: every issue you flag must include evidence. "This looks wrong" is not acceptable. Show *why* it's wrong — a failing test, contradictory docs, a concrete edge case that breaks. If you can't produce evidence, downgrade it to a question, not a finding.
