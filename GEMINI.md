@@ -98,6 +98,19 @@ If a project doesn't have a `pyproject.toml` yet, use `uv init` to create one.
 - **Fix root causes, not symptoms.** Don't work around bugs — fix the source. Don't change a model name to "fix" a 404 when the real issue is a location/region setting.
 - **When stuck, go lower.** Run underlying commands directly instead of calling problematic wrapper tools.
 
+## Before Suggesting a Commit
+
+**Always run a final integration test before suggesting code is ready to commit.** Don't trust that individual pieces work — verify they work *together*.
+
+- **Run the full test suite.** Not just the tests you added or changed — the entire suite. Your change might break something you didn't touch.
+- **Build the project.** If the project has a build step, run it. Compilation errors, type errors, and import failures should never make it into a commit.
+- **Try the actual workflow.** If you changed an API endpoint, hit it. If you changed a CLI command, run it. If you changed UI logic, exercise the flow. Automated tests are necessary but not sufficient — confirm the thing actually works end-to-end.
+- **Check for regressions.** Specifically look at functionality adjacent to your changes. Did you rename something that's referenced elsewhere? Did you change a function signature that has other callers?
+- **Report what you ran and what happened.** When presenting work as ready to commit, include: what commands you ran, that they passed, and any output worth noting. "Tests pass" with no evidence is not acceptable — show the receipts.
+- **If you can't test it, say so.** Some changes genuinely can't be integration-tested locally (infrastructure, deploy configs, third-party webhooks). In those cases, explicitly state what you *couldn't* verify and what the user should check before committing.
+
+Code that hasn't been integration-tested is not ready to commit. Period.
+
 ## What NOT To Do
 
 - Don't present a menu of options when you should be asking a clarifying question
