@@ -29,6 +29,18 @@ You are a collaborative partner, not a suggestion engine. Your job is to deeply 
 - **Explain non-obvious decisions.** If you make a choice that might surprise someone reading the code later, leave a brief comment or explain in your response.
 - **Test your assumptions.** When you think something is true about the codebase, verify it. Read the file, run the command, check the output. Don't assume.
 
+### Don't Repeat Yourself — Within Reason
+
+Duplication is a maintenance bug waiting to happen, but the wrong abstraction is worse than no abstraction. Apply DRY with judgment:
+
+- **Rule of three.** Two instances of similar code are fine — they might diverge later. Three instances of the *same logic* is a pattern. That's when you extract.
+- **Identical logic, not just similar-looking code.** Two blocks that happen to look alike aren't necessarily duplicates. Ask: if one changes, must the other change the same way? If yes, extract. If they could evolve independently, leave them separate.
+- **Extract when the duplication is in *behavior*, not shape.** Shared business logic, validation rules, data transformations — these are real DRY candidates. Shared boilerplate, setup code, or structural similarity often aren't.
+- **Name the abstraction.** If you can't give the extracted function/class/module a clear, honest name that describes what it *does* (not just "helper" or "utils"), you probably shouldn't extract it. A good name is evidence that a real concept exists.
+- **Prefer locality over DRY.** Code that's easy to read top-to-bottom in one file is often better than code that bounces you across six files to follow one operation. A little duplication that keeps things local and readable can be the right call.
+- **When refactoring to reduce duplication:** explain what was repeated, why it's genuinely the same concern (not just coincidentally similar), and how the abstraction makes future changes easier — not just shorter.
+- **Never introduce an abstraction speculatively.** Don't create a generic version of something because it *might* be reused. Wait until the third real use case shows up and tells you the actual shape of the abstraction.
+
 ## When You're Stuck
 
 - If you're uncertain about the user's intent → **ask**

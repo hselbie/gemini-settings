@@ -5,7 +5,8 @@ Please review the changes in the current working tree (or the last commit if the
 For each file changed:
 1. Read the full file for context
 2. Check the diff carefully
-3. Look for: bugs, edge cases, missing error handling, style inconsistencies, unnecessary complexity
+3. Look for: bugs, edge cases, missing error handling, style inconsistencies, unnecessary complexity, and DRY violations
+4. For DRY: flag logic that's copy-pasted 3+ times as a candidate for extraction. But do NOT flag duplication where the instances could reasonably diverge, or where extracting would create a vague "helper" with no clear name. Two similar blocks are fine. Three identical ones deserve a conversation.
 
 Be critical. If everything looks good, say so briefly. If there are issues, explain each one with:
 - The specific file and line
